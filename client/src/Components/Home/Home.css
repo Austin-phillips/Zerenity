@@ -1,0 +1,153 @@
+:root {
+  --color1: rgba(124, 137, 139, 1); 
+  --color2: rgba(99, 101, 100, 1); 
+  --color3: rgba(152, 148, 212, 1); 
+  --color4: rgba(208, 204, 208, 1); 
+  --color5: rgba(251, 252, 255, 1); 
+}
+
+/* General styling */
+h1{
+  font-size: 6em;
+  font-family: 'Arapey', serif;
+  margin-top: 150px;
+}
+
+#img-container{
+  background-image: url(../../assets/images/homeBackground.jpg);
+  height: 85vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+#inner-container{
+  text-align: center;
+  background-color: rgba(128, 128, 128, 0.4);
+  position: absolute;
+  width: 100%;
+  color: white;
+  height: 100%;
+}
+
+#whiteContainer{
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-top: 100px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+#header{
+  font-size: 3em;
+  font-family: 'Arapey', serif;
+  /* text-decoration: underline; */
+}
+
+#topBookButton{
+  background-color: var(--color3);
+  margin-top: 50px;
+}
+
+#homePageLinks{
+  text-decoration: none;
+}
+
+/* About me section */
+#aboutMeContainer{
+  margin-top: 150px;
+}
+
+#aboutMeGrid {
+  margin: 50px 50px 0 50px;
+  padding-bottom: 50px;
+}
+
+#aboutMeBody{
+  font-size: 1.2em;
+  font-family: 'Arapey', serif;
+}
+
+#aboutMeBodyContainer{
+  height: auto;
+}
+
+#aboutMeButton{
+  background-color: var(--color3);
+  margin-top: 70px;
+}
+
+/* Gallery */
+#imageCarouselContainer{
+  width: 50%;
+  margin: auto;
+  flex-grow: 1;
+}
+
+/* Responsive */
+/* large device */
+@media only screen and (max-width: 1000px) {
+  #aboutMeBody{
+    font-size: 1.1em;
+  }
+}
+
+/* Medium device  */
+@media only screen and (max-width: 920px) {
+  #aboutMeBody{
+    font-size: 1.1em;
+  }
+
+  #aboutMeBodyContainer{
+    margin-top: 0;
+    height: auto;
+  }
+
+  #imageCarouselContainer{
+    width: 80%;
+    margin: auto;
+  }
+}
+
+/* Small devices */
+@media only screen and (max-width: 775px) {
+  #aboutMeBody{
+    font-size: 1em;
+  }
+
+  #aboutMeBodyContainer{
+    margin-top: 0;
+    height: auto;
+  }
+
+  #imageCarouselContainer{
+    width: 90%;
+    margin: auto;
+  }
+}
+
+/* XS devices */
+@media only screen and (max-width: 600px) {
+  h1{
+    font-size: 3em;
+  }
+
+  #img-container{
+    height: 70vh;
+  }
+
+  #aboutMeBodyContainer{
+    margin-top: 0;
+    height: auto;
+  }
+
+  #aboutMeBody{
+    font-size: 1.2em;
+  }
+
+  #imageCarouselContainer{
+    width: 100%;
+  }
+}

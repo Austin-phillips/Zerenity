@@ -1,0 +1,51 @@
+:root {
+  --color1: rgba(124, 137, 139, 1); 
+  --color2: rgba(99, 101, 100, 1); 
+  --color3: rgba(152, 148, 212, 1); 
+  --color4: rgba(208, 204, 208, 1); 
+  --color5: rgba(251, 252, 255, 1); 
+}
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+html, body{
+  height:100%;
+}
+
+#appointmentsHeader{
+  margin: 50px auto 20px auto;
+  font-family: 'Arapey', serif;
+}
+
+#appointmentsContainer{
+  flex-grow: 1;
+  width: 100%;
+  min-height: 100vh;
+  overflow: auto;
+}
+
+#table {
+  margin: 20px;
+}
+
+#servicesLink {
+  background-color: var(--color3);
+  margin-top: 20px;
+}
+
+#appointmentLink{
+  text-decoration: none;
+}
+
+#appointmentsSignInButton {
+  background-color: #2196f3;
+}
+
+#appointmentSlideText{
+  color: grey;
+  margin-top: 20px;
+  font-size: .8em
+}

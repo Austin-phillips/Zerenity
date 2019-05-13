@@ -1,0 +1,52 @@
+:root {
+  --color1: rgba(124, 137, 139, 1); 
+  --color2: rgba(99, 101, 100, 1); 
+  --color3: rgba(152, 148, 212, 1); 
+  --color4: rgba(208, 204, 208, 1); 
+  --color5: rgba(251, 252, 255, 1); 
+}
+
+#servicesContainer{
+  width: 95%;
+  margin:  100px auto;
+  min-height: 100vh;
+  text-align: center;
+}
+
+#servicesHeader{
+  margin: 50px auto 20px auto;
+  font-family: 'Arapey', serif;
+}
+
+#servicesDivider{
+  margin-bottom: 25px;
+}
+
+#bookButton {
+  background-color: var(--color3);
+  margin: 5px 5px 5px 5px;
+}
+
+#bookButtonContainer{
+  display: block;
+  text-align: center;
+}
+
+#submitButton {
+  background-color: #2196f3;
+  margin: 5px 5px 5px 5px;
+}
+
+#cancelButton {
+  background-color: #f44336ab;
+  margin: 5px 5px 5px 5px;
+}
+
+#addButton {
+    background-color: #4caf50;
+    margin-left: 85%;
+}
+
+#serviceModalText p{
+  font-size: .9em
+}

@@ -1,0 +1,31 @@
+#galleryHeader{
+  margin: 100px auto 20px auto;
+  font-family: 'Arapey', serif;
+}
+
+#galleryDivider{
+  width: 95%;
+  margin: auto;
+}
+
+#addButton{
+  margin-top: 20px;
+}
+
+#galleryContainer{
+  width: 100%;
+  min-height: 100vh;
+}
+
+#imageContainer{
+  width: 90%;
+  margin: 15px auto 0 auto;
+  height: auto;
+  padding: auto;
+}
+
+#image{
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
