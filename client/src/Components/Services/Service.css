@@ -1,7 +1,7 @@
 :root {
   --color1: rgba(124, 137, 139, 1); 
   --color2: rgba(99, 101, 100, 1); 
-  --color3: rgba(152, 148, 212, 1); 
+  --color3: rgba(0, 84, 118, 1); 
   --color4: rgba(208, 204, 208, 1); 
   --color5: rgba(251, 252, 255, 1); 
 }
@@ -25,6 +25,7 @@
 #bookButton {
   background-color: var(--color3);
   margin: 5px 5px 5px 5px;
+  color: white;
 }
 
 #bookButtonContainer{
@@ -49,4 +50,17 @@
 
 #serviceModalText p{
   font-size: .9em
+}
+
+#loaderModalContainer{
+  text-align: center;
+  width: 100%;
+  margin-top: 75px;
+}
+
+#loaderContainer{
+  text-align: center;
+  width: 100%;
+  height: 80vh;
+  margin-top: 200px;
 }

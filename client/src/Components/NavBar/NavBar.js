@@ -92,13 +92,10 @@ class NavBar extends React.Component {
           <Toolbar>
             <MenuSlide user={user} />
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              <div id='NavBrand'>
-                Zerenity
-              </div>
             </Typography>
             {auth && (
               <div>
-                { user.isAuthenticated ? user.profile.name : null}
+                { user.isAuthenticated ? "Signed In" : null}
                 <IconButton
                   aria-owns={open ? 'menu-appbar' : undefined}
                   aria-haspopup="true"

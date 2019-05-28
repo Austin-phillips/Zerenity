@@ -23,7 +23,7 @@ class Footer extends Component {
             <p>
               <Link id="individualLink" to='/'>Home</Link> /  
               <Link id="individualLink" to='/services'> Services</Link> / 
-              <Link id="individualLink" to='/gallery'> Gallery</Link> / 
+              {/* <Link id="individualLink" to='/gallery'> Gallery</Link> /  */}
               <Link id="individualLink" to='/appointments'> Appointments</Link>
             </p>
           </div>

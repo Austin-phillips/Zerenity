@@ -1,7 +1,7 @@
 :root {
   --color1: rgba(124, 137, 139, 1); 
   --color2: rgba(99, 101, 100, 1); 
-  --color3: rgba(152, 148, 212, 1); 
+  --color3: rgba(0, 84, 118, 1); 
   --color4: rgba(208, 204, 208, 1); 
   --color5: rgba(251, 252, 255, 1); 
 }
@@ -77,6 +77,7 @@ h1{
 #aboutMeButton{
   background-color: var(--color3);
   margin-top: 70px;
+  color: white
 }
 
 /* Gallery */

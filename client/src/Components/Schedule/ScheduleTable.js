@@ -12,6 +12,8 @@ import moment from 'moment';
 import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
 import UpdateAppointment from './UpdateAppointment';
+import Typography from '@material-ui/core/Typography';
+import Loader from '../Loader';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import { connect } from 'react-redux';
@@ -44,12 +46,18 @@ class AppointmentsTable extends React.Component {
   state = { 
     search: '',
     selectedDate: null,
-    date: ''
+    date: '',
+    loaded: false
    }
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(getAppointments())
+    dispatch(getAppointments(this.toggleLoading))
+  }
+
+  toggleLoading = () => {
+    const { loaded } = this.state
+    this.setState({ loaded: !loaded })
   }
 
   handleTableCells = () => {
@@ -115,49 +123,60 @@ class AppointmentsTable extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { search, selectedDate } = this.state;
+    const { search, selectedDate, loaded } = this.state;
 
-    return (
-      <Paper className={classes.root}>
-        <div id="searchField">
-          <TextField
-            id="standard-name"
-            label="Search"
-            className={classes.textField}
-            value={search}
-            onChange={this.handleChange('search')}
-            margin="normal"
-          />
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DatePicker
-              margin="normal"
-              label="Date"
-              value={selectedDate}
-              onChange={this.handleDateChange}
-              className={classes.textField}
-            />
-          </MuiPickersUtilsProvider>
-          <IconButton className={classes.button} onClick={() => this.setState({ date: '', selectedDate: null, search: ''})} aria-label="Clear">
-            <ClearIcon />
-          </IconButton>
+    if (loaded === false) {
+      return(
+        <div id='loaderContainer'>
+          <Typography id="servicesHeader" align='center' variant="h5" gutterBottom>
+            Loading Schedule
+          </Typography>
+          <Loader />
         </div>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Date</TableCell>
-              <TableCell align="right">Time</TableCell>
-              <TableCell align="right">Service</TableCell>
-              <TableCell align="right">Price</TableCell>
-              <TableCell align="right">Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {this.handleTableCells()}
-          </TableBody>
-        </Table>
-      </Paper>
-    )
+      )
+    } else {
+      return (
+        <Paper className={classes.root}>
+          <div id="searchField">
+            <TextField
+              id="standard-name"
+              label="Search"
+              className={classes.textField}
+              value={search}
+              onChange={this.handleChange('search')}
+              margin="normal"
+            />
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <DatePicker
+                margin="normal"
+                label="Date"
+                value={selectedDate}
+                onChange={this.handleDateChange}
+                className={classes.textField}
+              />
+            </MuiPickersUtilsProvider>
+            <IconButton className={classes.button} onClick={() => this.setState({ date: '', selectedDate: null, search: ''})} aria-label="Clear">
+              <ClearIcon />
+            </IconButton>
+          </div>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell align="right">Date</TableCell>
+                <TableCell align="right">Time</TableCell>
+                <TableCell align="right">Service</TableCell>
+                <TableCell align="right">Price</TableCell>
+                <TableCell align="right">Actions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {this.handleTableCells()}
+            </TableBody>
+          </Table>
+        </Paper>
+      )
+    }
   };
 }
 

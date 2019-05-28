@@ -2,11 +2,12 @@ import axios from 'axios';
 import { setFlash } from './flash';
 import { BASE_URL } from '../Secrets/env';
 
-export const getAppointments = () => {
+export const getAppointments = (callback) => {
   return dispatch => {
     axios.get(`${BASE_URL}/api/appointments`)
       .then(res => {
         dispatch({ type: 'GET_APPOINTMENTS', appointments: res.data })
+        callback()
       })
       .catch(err => {
       })
@@ -51,11 +52,12 @@ export const addAppointment = (appointment) => {
   }
 }
 
-export const getUserAppointments = (uid) => {
+export const getUserAppointments = (uid, callback) => {
   return dispatch => {
     axios.get(`${BASE_URL}/api/appointments/${uid}`)
       .then(res => {
         dispatch({ type: 'GET_USERAPPOINTMENTS', userAppointments: res.data })
+        callback()
       })
       .catch(err => {
         console.log(err)

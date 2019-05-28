@@ -14,8 +14,6 @@ import { withCookies, Cookies } from 'react-cookie';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { ROLE_URL } from '../../Secrets/env';
-import { getServices } from '../../actions/services';
-import { getAppointments } from '../../actions/appointments';
 import './Service.css';
 
 const styles = {
@@ -31,12 +29,6 @@ const styles = {
 class ServiceCard extends React.Component {
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired
-  };
-
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(getServices())
-    dispatch(getAppointments())    
   };
 
   handleButtons = (service) => {

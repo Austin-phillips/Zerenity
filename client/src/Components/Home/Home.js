@@ -32,10 +32,6 @@ class Home extends Component {
       <div>
         {/* Top image and title */}
         <div id="img-container">
-          {/* <div id="inner-container">
-            <h1>Zerenity</h1>
-            <Link id="homePageLinks" to='/services'><Button id="topBookButton" size='large'>Book Now</Button></Link>
-          </div> */}
         </div>
         {/* About me section */}
         <div id="aboutMeContainer">
@@ -74,7 +70,7 @@ class Home extends Component {
             Gallery
           </Typography>
           <ImageCarousel />
-          <Link id='homePageLinks' to='/gallery'><Button id="aboutMeButton">View More Photos</Button></Link>
+          {/* <Link id='homePageLinks' to='/gallery'><Button id="aboutMeButton">View More Photos</Button></Link> */}
         </div>
       </div>
     )

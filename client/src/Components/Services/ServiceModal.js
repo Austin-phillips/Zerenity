@@ -12,9 +12,11 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Loader from '../Loader';
 import { addAppointment } from '../../actions/appointments';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import { connect } from 'react-redux';
+import { getAppointments } from '../../actions/appointments';
 import { withStyles } from '@material-ui/core/styles';
 import './Service.css'
 
@@ -124,7 +126,18 @@ class ServiceModal extends React.Component {
     notes: '',
     number: '',
     activeStep: 0,
+    loaded: false
   };
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(getAppointments(this.toggleLoading))
+  }
+
+  toggleLoading = () => {
+    const { loaded } = this.state
+    this.setState({ loaded: !loaded })
+  }
 
   handleNext = () => {
     this.setState(state => ({
@@ -139,95 +152,95 @@ class ServiceModal extends React.Component {
   };
 
   getStepContent = (step) => {
-  const { classes } = this.props;
-  const { email, selectedDate, first, last, service, time, price, length, number } = this.state;
-  switch (step) {
-    case 0:
-      return (
-        <form className={classes.container} noValidate autoComplete="off">
-          <TextField
-            id="standard-required"
-            label="First Name"
-            className={classes.textField}
-            value={this.state.first}
-            onChange={this.handleChange('first')}
-            margin="normal"
-          />
-          <TextField
-            id="standard-required"
-            label="Last Name"
-            className={classes.textField}
-            value={this.state.last}
-            onChange={this.handleChange('last')}
-            margin="normal"
-          />
-          <TextField
-            id="standard-read-only-input"
-            label="Email"
-            value={email}
-            className={classes.textField}
-            margin="normal"
-          />
-          <TextField
-            id="standard-required"
-            label="Phone Number"
-            className={classes.textField}
-            value={this.state.number}
-            onChange={this.handleChange('number')}
-            margin="normal"
-          />
-        </form>
-      )
-    case 1:
-      return (
-        <form className={classes.container} noValidate autoComplete="off">
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DatePicker
-              margin="normal"
-              label="Date picker"
-              value={selectedDate}
-              onChange={this.handleDateChange}
+    const { classes } = this.props;
+    const { email, selectedDate, first, last, service, time, price, length, number } = this.state;
+    switch (step) {
+      case 0:
+        return (
+          <form className={classes.container} noValidate autoComplete="off">
+            <TextField
+              id="standard-required"
+              label="First Name"
               className={classes.textField}
+              value={this.state.first}
+              onChange={this.handleChange('first')}
+              margin="normal"
             />
-          </MuiPickersUtilsProvider>
-          <TextField
-            id="standard-required"
-            select
-            label="Select"
-            className={classes.textField}
-            value={this.state.time}
-            onChange={this.handleChange('time')}
-            SelectProps={{
-              MenuProps: {
-                className: classes.menu,
-              },
-            }}
-            helperText="Please select a time"
-            margin="normal"
-          >
-            {available.map(a => (
-              <MenuItem key={a.key} value={a.text} disabled={a.disabled}>
-                {a.text}
-              </MenuItem>
-            ))}
-          </TextField>
-        </form>
-      )
-    case 2:
-      return (
-        <div id="serviceModalText">
-          <p>{`Name: ${first} ${last}`}</p>
-          <p>{`Phone Number: ${number} `}</p>
-          <p>{`Service: ${service}`}</p>
-          <p>{`Date: ${moment(selectedDate).format('MM/DD/YY')} at ${time}.`}</p>
-          <p>{`Price: $${price}.00`}</p>
-          <p>{`Length: ${length} min`}</p>
-        </div>
-      )
-    default:
-      return 'Unknown step';
+            <TextField
+              id="standard-required"
+              label="Last Name"
+              className={classes.textField}
+              value={this.state.last}
+              onChange={this.handleChange('last')}
+              margin="normal"
+            />
+            <TextField
+              id="standard-read-only-input"
+              label="Email"
+              value={email}
+              className={classes.textField}
+              margin="normal"
+            />
+            <TextField
+              id="standard-required"
+              label="Phone Number"
+              className={classes.textField}
+              value={this.state.number}
+              onChange={this.handleChange('number')}
+              margin="normal"
+            />
+          </form>
+        )
+      case 1:
+        return (
+          <form className={classes.container} noValidate autoComplete="off">
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <DatePicker
+                margin="normal"
+                label="Date picker"
+                value={selectedDate}
+                onChange={this.handleDateChange}
+                className={classes.textField}
+              />
+            </MuiPickersUtilsProvider>
+            <TextField
+              id="standard-required"
+              select
+              label="Select"
+              className={classes.textField}
+              value={this.state.time}
+              onChange={this.handleChange('time')}
+              SelectProps={{
+                MenuProps: {
+                  className: classes.menu,
+                },
+              }}
+              helperText="Please select a time"
+              margin="normal"
+            >
+              {available.map(a => (
+                <MenuItem key={a.key} value={a.text} disabled={a.disabled}>
+                  {a.text}
+                </MenuItem>
+              ))}
+            </TextField>
+          </form>
+        )
+      case 2:
+        return (
+          <div id="serviceModalText">
+            <p>{`Name: ${first} ${last}`}</p>
+            <p>{`Phone Number: ${number} `}</p>
+            <p>{`Service: ${service}`}</p>
+            <p>{`Date: ${moment(selectedDate).format('MM/DD/YY')} at ${time}.`}</p>
+            <p>{`Price: $${price}.00`}</p>
+            <p>{`Length: ${length} min`}</p>
+          </div>
+        )
+      default:
+        return 'Unknown step';
+    }
   }
-}
 
   handleOpen = () => {
     this.setState({ open: true });
@@ -249,23 +262,23 @@ class ServiceModal extends React.Component {
         time['disabled'] = false
       }
     })
-    this.setState({ selectedDate: selectedDate, time: ''});
+    this.setState({ selectedDate: selectedDate, time: '' });
     if (daysOff.indexOf(dayOfWeek) !== -1) {
       available.forEach((time) => {
         time['disabled'] = true;
       })
     } else {
       this.HandleDisabled(selectedDate)
-    }  
+    }
   };
 
   HandleDisabled = (date) => {
     const { appointments } = this.props;
-    const last = available.length -1
+    const last = available.length - 1
     const { length } = this.state;
 
     appointments.forEach((app) => available.forEach((time, index, array) => {
-      
+
       var half = index + 1 <= last ? array[index + 1] : time
       var fourtyFive = index + 2 <= last ? array[index + 2] : time
       var hour = index + 3 <= last ? array[index + 3] : time
@@ -287,25 +300,25 @@ class ServiceModal extends React.Component {
 
       function checkCurrentLength() {
         if (length === 30) {
-          return(
+          return (
             backHalf['disabled'] = true
           )
         } else if (length === 60) {
-          return(
+          return (
             backHalf['disabled'] = true,
             backFourtyFive['disabled'] = true,
             backHour['disabled'] = true
           )
-        } else if ( length === 90) {
-          return(
+        } else if (length === 90) {
+          return (
             backHalf['disabled'] = true,
             backFourtyFive['disabled'] = true,
             backHour['disabled'] = true,
             backHourFifteen['disabled'] = true,
             backHourHalf['disabled'] = true
           )
-        } else if ( length === 120) {
-          return(
+        } else if (length === 120) {
+          return (
             backHalf['disabled'] = true,
             backFourtyFive['disabled'] = true,
             backHour['disabled'] = true,
@@ -314,8 +327,8 @@ class ServiceModal extends React.Component {
             backHourfourtyFive['disabled'] = true,
             backTwoHour['disabled'] = true
           )
-        } else if ( length === 150) {
-          return(
+        } else if (length === 150) {
+          return (
             backHalf['disabled'] = true,
             backFourtyFive['disabled'] = true,
             backHour['disabled'] = true,
@@ -329,7 +342,7 @@ class ServiceModal extends React.Component {
         }
       }
       if (app.date === moment(date).format("MM/DD/YY") && app.time === time['text']) {
-        if (app.length === 30){
+        if (app.length === 30) {
           time['disabled'] = true
           half['disabled'] = true
           checkCurrentLength()
@@ -380,7 +393,7 @@ class ServiceModal extends React.Component {
   buttonDisabled = (step) => {
     const { first, last, email, number, selectedDate, time } = this.state;
 
-    if (step === 0){
+    if (step === 0) {
       if (first, last, email, number === '') return true;
       else if (number.match((/[a-z]/i))) return true;
     } else if (step === 1) {
@@ -402,58 +415,66 @@ class ServiceModal extends React.Component {
   render() {
     const { classes } = this.props;
     const steps = getSteps();
-    const { activeStep, first, last } = this.state;
+    const { activeStep, first, last, loaded } = this.state;
 
     return (
       <div>
-          <Button id='bookButton' onClick={this.handleOpen}>Book Appointment</Button>
+        <Button id='bookButton' onClick={this.handleOpen}>Book Appointment</Button>
         <Modal
           open={this.state.open}
           onClose={this.handleClose}
         >
           <div style={getModalStyle()} className={classes.paper}>
             <div className={classes.root}>
-              <Stepper activeStep={activeStep} orientation="vertical">
-                {steps.map((label, index) => (
-                  <Step key={label}>
-                    <StepLabel>{label}</StepLabel>
-                    <StepContent>
-                      {this.getStepContent(index)}
-                      <div className={classes.actionsContainer}>
-                        <div>
-                          <Button
-                            disabled={activeStep === 0}
-                            onClick={this.handleBack}
-                            className={classes.button}
-                          >
-                            Back
-                          </Button>
-                          {activeStep === steps.length - 1 ? 
-                          <Button
-                            disabled={this.buttonDisabled(activeStep)}
-                            variant="contained"
-                            color="primary"
-                            onClick={this.handleSubmit}
-                            className={classes.button}
-                          > 
-                            Finished
-                          </Button> :
-                          <Button
-                            disabled={this.buttonDisabled(activeStep)}
-                            variant="contained"
-                            color="primary"
-                            onClick={this.handleNext}
-                            className={classes.button}
-                          >
-                          Next
-                          </Button>
-                        }
+              {loaded === false ?
+                <div id='loaderModalContainer'>
+                  <Typography id="servicesHeader" align='center' variant="h5" gutterBottom>
+                    Loading Booker
+                  </Typography>
+                  <Loader />
+                </div> :
+                <Stepper activeStep={activeStep} orientation="vertical">
+                  {steps.map((label, index) => (
+                    <Step key={label}>
+                      <StepLabel>{label}</StepLabel>
+                      <StepContent>
+                        {this.getStepContent(index)}
+                        <div className={classes.actionsContainer}>
+                          <div>
+                            <Button
+                              disabled={activeStep === 0}
+                              onClick={this.handleBack}
+                              className={classes.button}
+                            >
+                              Back
+                            </Button>
+                            {activeStep === steps.length - 1 ?
+                              <Button
+                                disabled={this.buttonDisabled(activeStep)}
+                                variant="contained"
+                                color="primary"
+                                onClick={this.handleSubmit}
+                                className={classes.button}
+                              >
+                                Finished
+                            </Button> :
+                              <Button
+                                disabled={this.buttonDisabled(activeStep)}
+                                variant="contained"
+                                color="primary"
+                                onClick={this.handleNext}
+                                className={classes.button}
+                              >
+                                Next
+                            </Button>
+                            }
+                          </div>
                         </div>
-                      </div>
-                    </StepContent>
-                  </Step>
-                ))}
-              </Stepper>
+                      </StepContent>
+                    </Step>
+                  ))}
+                </Stepper>
+              }
               {activeStep === steps.length && (
                 <Paper square elevation={0} className={classes.resetContainer}>
                   <Typography>{`Thank You ${first} ${last} for booking.`}</Typography>
@@ -465,7 +486,7 @@ class ServiceModal extends React.Component {
           </div>
         </Modal>
       </div>
-    );
+    )
   }
 }
 
@@ -474,7 +495,7 @@ ServiceModal.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { appointments: state.appointments, user: state.user}
+  return { appointments: state.appointments, user: state.user }
 }
 
 // We need an intermediary variable for handling the recursive nesting.

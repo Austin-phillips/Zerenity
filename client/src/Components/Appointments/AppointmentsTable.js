@@ -7,6 +7,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Loader from '../Loader';
 import { connect } from 'react-redux';
 import { getUserAppointments } from '../../actions/appointments';
 
@@ -22,15 +24,22 @@ const styles = theme => ({
 });
 
 class AppointmentsTable extends React.Component{
-  state = { id: this.props.user.isAuthenticated ? this.props.user.profile.sub : 0}
+  state = { id: this.props.user.isAuthenticated ? this.props.user.profile.sub : 0,
+            loaded: false,
+          }
 
   componentDidMount() {
     const { dispatch, user } = this.props;
     const { id } = this.state
     if (user.isAuthenticated) {
-      dispatch(getUserAppointments(id))
+      dispatch(getUserAppointments(id, this.toggleLoading))
     } else 
     return null
+  }
+
+  toggleLoading = () => {
+    const { loaded } = this.state
+    this.setState({ loaded: !loaded })
   }
 
   handleTableCells = () => {
@@ -70,26 +79,37 @@ class AppointmentsTable extends React.Component{
   }
 
   render() {
-  const { classes } = this.props;
-
-  return (
-    <Paper className={classes.root}>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Date</TableCell>
-            <TableCell align="right">Time</TableCell>
-            <TableCell align="right">Service</TableCell>
-            <TableCell align="right">Price</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {this.handleTableCells()}
-        </TableBody>
-      </Table>
-    </Paper>
-  )};
+  const { classes, user } = this.props;
+  
+  if (user.isAuthenticated && this.state.loaded === false) {
+    return(
+      <div id='loaderContainer'>
+        <Typography id="servicesHeader" align='center' variant="h5" gutterBottom>
+          Loading Appointments
+          </Typography>
+        <Loader />
+      </div>
+    )
+  } else {
+    return (
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell align="right">Date</TableCell>
+              <TableCell align="right">Time</TableCell>
+              <TableCell align="right">Service</TableCell>
+              <TableCell align="right">Price</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {this.handleTableCells()}
+          </TableBody>
+        </Table>
+      </Paper>
+    )};
+  }
 }
 
 AppointmentsTable.propTypes = {

@@ -2,11 +2,12 @@ import axios from 'axios';
 import { setFlash } from './flash';
 import { BASE_URL } from '../Secrets/env';
 
-export const getServices = () => {
+export const getServices = (callback) => {
   return dispatch => {
     axios.get(`${BASE_URL}/api/services`)
       .then(res => {
         dispatch({ type: 'GET_SERVICES', services: res.data})
+        callback()
       })
       .catch(err => {
         dispatch(setFlash('Error loading services, please try again.', 'error'))

@@ -32,7 +32,7 @@ const navOptions = [
   { key: '1', text: 'Home', value: 'Home', href: '/' },
   { key: '2', text: 'Services', value: 'Services', href: '/services' },
   { key: '3', text: 'Appointments', value: 'Appointments', href: '/appointments'},
-  { key: '4', text: 'Photo Gallery', value: 'Photo Gallery', href: '/gallery' },
+  // { key: '4', text: 'Photo Gallery', value: 'Photo Gallery', href: '/gallery' },
 ]
 
 class Menu extends React.Component {
